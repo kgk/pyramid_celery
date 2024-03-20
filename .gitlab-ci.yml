@@ -21,7 +21,7 @@ ruff:
   stage: check
   script:
     - pip install ruff
-    - ruff --output-format=gitlab --output-file gl-code-quality-report.json pyrmaid_celery
+    - ruff check --output-format=gitlab --output-file gl-code-quality-report.json pyramid_celery
   artifacts:
     reports:
       codequality: gl-code-quality-report.json

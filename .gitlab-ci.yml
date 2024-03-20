@@ -11,8 +11,8 @@ cache:
     - venv/
 
 stages:
-  check
-  deploy
+  - check
+  - deploy
 
 before_script:
   - python -V  # Print out python version for debugging

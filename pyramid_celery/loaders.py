@@ -1,7 +1,6 @@
 import datetime
 import json
-import pyjson5 as json5
-from pyjson5 import Json5DecoderException as JSONDecodeError
+from ast import literal_eval
 import celery.loaders.base
 import celery.schedules
 import configparser
@@ -95,13 +94,6 @@ def get_route_config(parser, section):
 
 def safe_conversion(value):
     """convert a string to a more specific type"""
-    try:
-        newval= json5.loads(value)
-        #print("JSON DECODED", type(newval),  newval)
-        return newval
-    except JSONDecodeError:
-        pass
-
     if value.lower() in ("true", "false"):
         return bool(value)
     try:
@@ -109,7 +101,12 @@ def safe_conversion(value):
             return int(value)
         return float(value)
     except ValueError:
-        return value
+        pass
+    try:
+        return literal_eval(value)
+    except ValueError:
+        pass
+    return value
 
 
 class INILoader(celery.loaders.base.BaseLoader):

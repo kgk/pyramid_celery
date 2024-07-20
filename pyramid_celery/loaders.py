@@ -97,12 +97,6 @@ def safe_conversion(value):
     if value.lower() in ("true", "false"):
         return bool(value)
     try:
-        if float(value).is_integer():
-            return int(value)
-        return float(value)
-    except ValueError:
-        pass
-    try:
         return literal_eval(value)
     except ValueError:
         pass

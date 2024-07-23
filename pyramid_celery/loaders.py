@@ -98,7 +98,7 @@ def safe_conversion(value):
         return bool(value)
     try:
         return literal_eval(value)
-    except ValueError:
+    except ValueError,SyntaxError,TypeError,MemoryError,RecursionError:
         pass
     return value
 
